@@ -3,7 +3,7 @@ import Head from "next/head";
 import { getLoggedUserId } from "../utils/getLoggedUserId";
 import React from "react";
 import { GetServerSideProps } from "next";
-import { Conversation, DisplayedConversation } from "../types/conversation";
+import { DisplayedConversation } from "../types/conversation";
 import ConversationsList from "../components/ConversationsList";
 import Container from "../components/HomePageContainer";
 import { getCorrespondentName } from "../utils/getCorrespondentName";

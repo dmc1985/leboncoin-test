@@ -10,4 +10,5 @@ export default styled.div`
   @media (max-width: 600px) {
     width: 100%;
     flex-direction: column;
+  }
 `;

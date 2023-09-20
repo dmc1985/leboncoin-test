@@ -1,11 +1,12 @@
 import React, { ReactElement } from "react";
-import { Conversation } from "../../types/conversation";
+import { Conversation, DisplayedConversation } from "../../types/conversation";
 import ConversationCard from "../ConversationCard";
 import { Container } from "./styledComponents";
 import { format } from "date-fns";
+import Link from "next/link";
 
 interface Props {
-  conversations: Conversation[];
+  conversations: DisplayedConversation[];
 }
 
 const LAST_MESSAGE_DATE_FORMAT = "LLLL d ";
@@ -15,15 +16,16 @@ export default function ConversationsList({
 }: Props): ReactElement {
   return (
     <Container>
-      {conversations.map((conversation: Conversation) => (
-        <ConversationCard
-          key={conversation.id}
-          correspondentName={conversation.recipientNickname}
-          lastMessageDate={format(
-            new Date(conversation.lastMessageTimestamp),
-            LAST_MESSAGE_DATE_FORMAT,
-          )}
-        />
+      {conversations.map((conversation) => (
+        <Link key={conversation.id} href={`/conversation/${conversation.id}`}>
+          <ConversationCard
+            correspondentName={conversation.correspondentName}
+            lastMessageDate={format(
+              new Date(conversation.lastMessageTimestamp),
+              LAST_MESSAGE_DATE_FORMAT,
+            )}
+          />
+        </Link>
       ))}
     </Container>
   );

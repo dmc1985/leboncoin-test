@@ -1,5 +1,11 @@
 import React, { ReactElement } from "react";
-import { Avatar, Container, InfoContainer } from "./styledComponents";
+import {
+  Avatar,
+  Container,
+  DateText,
+  InfoContainer,
+  NameText,
+} from "./styledComponents";
 
 interface Props {
   correspondentName: string;
@@ -13,8 +19,8 @@ const ConversationCard = ({
   <Container>
     <Avatar>{correspondentName.slice(0, 1)}</Avatar>
     <InfoContainer>
-      <div>{correspondentName}</div>
-      <div>{lastMessageDate}</div>
+      <NameText>{correspondentName}</NameText>
+      <DateText>{lastMessageDate}</DateText>
     </InfoContainer>
   </Container>
 );

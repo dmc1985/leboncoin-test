@@ -1,5 +1,5 @@
 import React, { ReactElement } from "react";
-import { Conversation, DisplayedConversation } from "../../types/conversation";
+import { DisplayedConversation } from "../../types/conversation";
 import ConversationCard from "../ConversationCard";
 import { Container } from "./styledComponents";
 import { format } from "date-fns";

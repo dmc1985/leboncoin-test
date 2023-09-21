@@ -28,7 +28,7 @@ const Home = ({ conversations }: Props): ReactElement => {
   );
 };
 
-export const getServerSideProps = (async (context) => {
+export const getServerSideProps = (async () => {
   const userId = getLoggedUserId();
 
   const res = await fetch(`http://localhost:3005/conversations/${userId}`);

@@ -6,9 +6,6 @@ type MessageDisplayProps = Pick<DisplayedMessage, "sentByCorrespondent">;
 export const Container = styled.div<MessageDisplayProps>`
   display: flex;
   flex-direction: column;
-  ${({ sentByCorrespondent }: MessageDisplayProps) =>
-    `align-self: ${sentByCorrespondent ? "start" : "end"}`};
-  width: 80%;
   align-items: center;
   justify-content: center;
   margin: 2rem;
@@ -18,6 +15,7 @@ export const MessageBubble = styled.div<MessageDisplayProps>`
   ${({ sentByCorrespondent }: MessageDisplayProps) =>
     `background-color: ${sentByCorrespondent ? "grey" : "deepskyblue"};
     color: ${sentByCorrespondent ? "black" : "white"};
+    align-self: ${sentByCorrespondent ? "start" : "end"}
     `};
   padding: 0.5rem 2rem;
 `;

@@ -5,9 +5,10 @@ export const Container = styled.div`
   flex: 1;
   flex-direction: column;
   justify-content: flex-end;
-  margin: 2rem 8rem;
+  padding: 2rem 8rem;
   @media (max-width: 600px) {
     margin: 0.5rem;
+    padding: 0.5rem 2rem;
   }
 `;
 
@@ -28,9 +29,11 @@ export const MessageContainer = styled.div`
 export const Header = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   background-color: lightgrey;
   border-top: 1px solid black;
   height: 4rem;
+  padding: 2rem;
 `;
 
 export const SendMessageInput = styled.input`

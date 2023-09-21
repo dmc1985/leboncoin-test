@@ -1,4 +1,9 @@
-import React, { PropsWithChildren, ReactElement, useState } from "react";
+import React, {
+  PropsWithChildren,
+  ReactElement,
+  useRef,
+  useState,
+} from "react";
 import { formatRelative } from "date-fns";
 import { Conversation } from "../../types/conversation";
 import { User } from "../../types/user";
@@ -35,10 +40,17 @@ const ConversationDetailLayout = ({
   );
 
   const [message, setMessage] = useState("");
+  const messageContainerRef = useRef(null);
 
-  const handleSendMessage = () => {
-    setMessage("");
-    return sendMessage(message);
+  const handleSendMessage = async () => {
+    if (message) {
+      setMessage("");
+      await sendMessage(message);
+      messageContainerRef.current.scrollTo({
+        top: messageContainerRef.current.scrollHeight,
+        behavior: "smooth",
+      });
+    }
   };
 
   return (
@@ -47,7 +59,7 @@ const ConversationDetailLayout = ({
         <HeaderText>{`${correspondentName} - You`}</HeaderText>
         <HeaderText desktopOnly>{`Last message ${lastMessageDate}`}</HeaderText>
       </Header>
-      <MessageContainer>
+      <MessageContainer ref={messageContainerRef}>
         {messages.map((message) => (
           <MessageDisplay
             key={message.id}
@@ -68,9 +80,9 @@ const ConversationDetailLayout = ({
           }}
         />
         <SendArrowContainer>
-          <button disabled={!message} onClick={() => handleSendMessage()}>
+          <div onClick={() => handleSendMessage()}>
             <SendArrowIcon color="grey" />
-          </button>
+          </div>
         </SendArrowContainer>
       </InputContainer>
     </Container>

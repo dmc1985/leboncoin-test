@@ -5,11 +5,30 @@ import { getCorrespondentName } from "../../utils/getCorrespondentName";
 import ConversationDetailLayout, {
   Props as ConversationDetailProps,
 } from "../../components/ConversationDetailLayout";
+import { useRouter } from "next/router";
+import { sendMessage } from "../../utils/sendMessage";
+import { User } from "../../types/user";
 
-const ConversationDetailPage = (
-  props: ConversationDetailProps,
-): ReactElement => {
-  return <ConversationDetailLayout {...props} />;
+interface Props extends Omit<ConversationDetailProps, "sendMessage"> {
+  userId: User["id"];
+}
+
+const ConversationDetailPage = ({ userId, ...props }: Props): ReactElement => {
+  const router = useRouter();
+  const conversationId = +router.query.id;
+  const refreshData = async () => {
+    await router.replace(router.asPath);
+  };
+
+  return (
+    <ConversationDetailLayout
+      {...props}
+      sendMessage={async (body) => {
+        await sendMessage({ conversationId, userId, body });
+        return refreshData();
+      }}
+    />
+  );
 };
 export const getServerSideProps = (async (context) => {
   const { id: conversationId } = context.query;
@@ -37,11 +56,12 @@ export const getServerSideProps = (async (context) => {
 
   return {
     props: {
-      messages: formattedMessages,
+      userId,
       correspondentName,
+      messages: formattedMessages,
       lastMessageTimestamp: conversation.lastMessageTimestamp,
     },
   };
-}) satisfies GetServerSideProps<ConversationDetailProps>;
+}) satisfies GetServerSideProps<Props>;
 
 export default ConversationDetailPage;

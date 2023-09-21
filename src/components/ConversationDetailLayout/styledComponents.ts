@@ -34,9 +34,9 @@ export const Header = styled.div`
 `;
 
 export const SendMessageInput = styled.input`
-  height: 2rem;
+  height: 3rem;
   border-radius: 2rem;
-  padding: 0.5rem 2rem;
+  padding: 1rem 2rem;
   bottom: 10%;
   width: 90%;
   margin: 0 2rem;
@@ -54,4 +54,15 @@ export const HeaderText = styled.span<HeaderTextProps>`
       display: ${desktopOnly ? "none" : "hidden"}
     `}
   }
+`;
+
+export const InputContainer = styled.div`
+  display: inline-block;
+  position: relative;
+`;
+
+export const SendArrowContainer = styled.div`
+  position: absolute;
+  right: 10%;
+  top: 20%;
 `;

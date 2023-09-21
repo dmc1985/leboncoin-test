@@ -46,10 +46,13 @@ const ConversationDetailLayout = ({
     if (message) {
       setMessage("");
       await sendMessage(message);
-      messageContainerRef.current.scrollTo({
-        top: messageContainerRef.current.scrollHeight,
-        behavior: "smooth",
-      });
+
+      if (messageContainerRef.current.scrollTo) {
+        messageContainerRef.current.scrollTo({
+          top: messageContainerRef.current.scrollHeight,
+          behavior: "smooth",
+        });
+      }
     }
   };
 

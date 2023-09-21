@@ -43,6 +43,15 @@ export const getServerSideProps = (async (context) => {
   );
 
   const userId = getLoggedUserId();
+  if (conversation.recipientId !== userId && conversation.senderId !== userId) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/",
+      },
+      props: {},
+    };
+  }
 
   const correspondentName = getCorrespondentName({
     conversation,

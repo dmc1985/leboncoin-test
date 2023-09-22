@@ -1,11 +1,14 @@
 # Desktop demo:
 
-https://github.com/dmc1985/leboncoin-test/assets/25933535/21b017c8-b709-4be7-903d-6762df93025e
+
+https://github.com/dmc1985/leboncoin-test/assets/25933535/a179763d-c7c5-45f6-bc75-aa1cd9e5dae3
+
+
 
 # Mobile demo:
 
 
-https://github.com/dmc1985/leboncoin-test/assets/25933535/78e54c3f-8ae0-48a0-b6cc-9408b2f404c2
+https://github.com/dmc1985/leboncoin-test/assets/25933535/e43bb244-5574-4eb1-943e-f057363c5a96
 
 
 # My thought process:

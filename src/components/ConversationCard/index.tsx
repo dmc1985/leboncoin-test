@@ -6,21 +6,25 @@ import {
   InfoContainer,
   NameText,
 } from "./styledComponents";
+import { DisplayedConversation } from "../../types/conversation";
+import { format } from "date-fns";
 
 interface Props {
-  correspondentName: string;
-  lastMessageDate: string;
+  conversation: DisplayedConversation;
 }
 
+const LAST_MESSAGE_DATE_FORMAT = "LLLL d ";
+
 const ConversationCard = ({
-  correspondentName,
-  lastMessageDate,
+  conversation: { id, correspondentName, lastMessageTimestamp },
 }: Props): ReactElement => (
-  <Container>
+  <Container href={`/conversation/${id}`}>
     <Avatar>{correspondentName.slice(0, 1)}</Avatar>
     <InfoContainer>
       <NameText>{correspondentName}</NameText>
-      <DateText>{lastMessageDate}</DateText>
+      <DateText>
+        {format(new Date(lastMessageTimestamp), LAST_MESSAGE_DATE_FORMAT)}
+      </DateText>
     </InfoContainer>
   </Container>
 );

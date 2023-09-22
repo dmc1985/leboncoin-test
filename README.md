@@ -35,7 +35,7 @@ If the user is neither, then they are not permitted to view that conversation.
 I added basic tests for the two main pages using react-testing-library. Although my tests are by no means complete, I wanted to ensure that the essential 
 information is displayed and the key user actions are covered by the tests.
 
-I had a few issues with json-server which slowed me down a bit: 
+I spent ~5 hours on this time because I wanted to deliver something complete, but I had a few issues with json-server which slowed me: 
 1. When I called the conversation/:id route, the middleware for sending all conversations by userId was intercepting those calls and returning an empty array. 
 I had to modify the middleware to only handle requests with a request.query.senderId.
 2. After sending a new message, the lastMessageTimestamp of the relevant conversation has to be updated. This requires a patch request, but json-server 

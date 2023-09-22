@@ -43,6 +43,15 @@ export const getServerSideProps = (async (context) => {
   );
 
   const userId = getLoggedUserId();
+  if (!userId)
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/login",
+      },
+      props: {},
+    };
+
   if (conversation.recipientId !== userId && conversation.senderId !== userId) {
     return {
       redirect: {

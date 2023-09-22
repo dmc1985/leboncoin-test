@@ -17,9 +17,14 @@ const Home = ({ conversations }: Props): ReactElement => (
 export const getServerSideProps = (async () => {
   const userId = getLoggedUserId();
 
-  if (!userId) {
-    return { props: { conversations: [] } };
-  }
+  if (!userId)
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/login",
+      },
+      props: {},
+    };
 
   const res = await fetch(`http://localhost:3005/conversations/${userId}`);
   const conversations = await res.json();

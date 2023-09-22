@@ -19,13 +19,13 @@ had to add a _document.js file to the pages folder.
 To separate the logic for data fetching from the display, all data fetching and formatting occurs in the components in the pages directory
 while all the display logic belongs in the components directory. The majority of the fetching logic is in getServerSideProps(),
 but I also needed to handle the refreshing of data on the client side to show new messages once they were sent. The only formatting of data that occurs
-in the components is the formatting of dates since this is a display issue that is largely dependent on the user's timezone and language.
+in the components is the formatting of dates since this is a client-side display issue that is largely dependent on the user's timezone and language.
 
 Once I had a basic, working display of conversations and messages, I implemented the sending of messages. A small feature that I added to improve
-accessibility is to enable new message to be sent either by clicking the arrow button or pressing the enter key.
+accessibility is to enable new messages to be sent either by clicking the arrow button or pressing the enter key.
 
-After the messages could be sent, the new message must become visible by programmatically scrolling to the bottom of the container.
-As soon as the key functionality was complete, I went back and improved the styling to ensure it was correct for both desktop and mobile based on the screens provided.
+After the messages could be sent, the new message must become visible which requires programmatically scrolling to the bottom of the container.
+As soon as the key functionalities were in place, I went back and improved the styling to ensure it was correct for both desktop and mobile based on the screens provided.
 
 To address security concerns, I put all the fetching of data in getServerSideProps since this is safer than client-side fetching. 
 When fetching data, I make a check that the user is authenticated (i.e. the userId is truthy), and I redirect to a login page if it is falsy. 
@@ -35,7 +35,7 @@ If the user is neither, then they are not permitted to view that conversation.
 I added basic tests for the two main pages using react-testing-library. Although my tests are by no means complete, I wanted to ensure that the essential 
 information is displayed and the key user actions are covered by the tests.
 
-I spent ~5 hours on this time because I wanted to deliver something complete, but I had a few issues with json-server which slowed me: 
+I spent ~5 hours on this (not including writing the README) because I wanted to deliver something complete, but I had a few issues with json-server which slowed me down: 
 1. When I called the conversation/:id route, the middleware for sending all conversations by userId was intercepting those calls and returning an empty array. 
 I had to modify the middleware to only handle requests with a request.query.senderId.
 2. After sending a new message, the lastMessageTimestamp of the relevant conversation has to be updated. This requires a patch request, but json-server 
@@ -46,12 +46,13 @@ I could not bear to turn in this test with a glaring bug like that. I tried to f
 I decided to just fetch each conversation independently to get the latest timestamp. This is obviously a very inefficient way to do this, but I
 wanted it to work.
 
-3 small improvements I would make:
+4 improvements I would make:
 1. Regarding showing new messages sent by the other person, I recognize that a chat app like this would most likely use a Web socket architecture rather 
 than a REST API. However, in the current configuration, there needs to be some sort of polling mechanism that ensures that messages sent by the other user 
 would be fetched in regular intervals. 
 2. Use environment variables for the api domain rather than hardcoding "http://localhost:3005"
-3. Using a theme rather than putting uncoordinated colors and sizes for the styling. 
+3. Using a theme rather than putting uncoordinated colors and sizes for the styling.
+4. Fix the issue in the middleware so there is only one request to hydrate the Home page that displays the list of conversations
 
 
 # Context :

@@ -1,32 +1,18 @@
 import type { ReactElement } from "react";
-import Head from "next/head";
 import { getLoggedUserId } from "../utils/getLoggedUserId";
 import React from "react";
 import { GetServerSideProps } from "next";
 import { DisplayedConversation } from "../types/conversation";
-import ConversationsList from "../components/ConversationsList";
-import Container from "../components/HomePageContainer";
 import { getCorrespondentName } from "../utils/getCorrespondentName";
+import HomePageLayout from "../components/HomePageLayout";
 
 interface Props {
   conversations: DisplayedConversation[];
 }
 
-const Home = ({ conversations }: Props): ReactElement => {
-  return (
-    <Container>
-      <Head>
-        <title>DMC - Leboncoin test</title>
-        <meta
-          name="description"
-          content="Frontend exercise for developpers who want to join us on leboncoin.fr"
-        ></meta>
-      </Head>
-
-      <ConversationsList conversations={conversations} />
-    </Container>
-  );
-};
+const Home = ({ conversations }: Props): ReactElement => (
+  <HomePageLayout conversations={conversations} />
+);
 
 export const getServerSideProps = (async () => {
   const userId = getLoggedUserId();

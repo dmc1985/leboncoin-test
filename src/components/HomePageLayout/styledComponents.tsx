@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export default styled.div`
+export const Container = styled.div`
   height: 100%;
   width: 80%;
   padding: 0 0.5rem;

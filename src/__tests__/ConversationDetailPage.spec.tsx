@@ -28,7 +28,7 @@ describe("<ConversationDetailPage />", () => {
       <ConversationDetailPage
         userId={1}
         messages={displayedMessages}
-        correspondentName={"Thibaut"}
+        correspondentName="Thibaut"
         lastMessageTimestamp={displayedMessages[0].timestamp}
       />,
       { wrapper: MemoryRouterProvider },
@@ -45,7 +45,7 @@ describe("<ConversationDetailPage />", () => {
       <ConversationDetailPage
         userId={1}
         messages={displayedMessages}
-        correspondentName={"Thibaut"}
+        correspondentName="Thibaut"
         lastMessageTimestamp={displayedMessages[0].timestamp}
       />,
       { wrapper: MemoryRouterProvider },

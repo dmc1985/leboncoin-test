@@ -12,6 +12,7 @@ import {
   Header,
   HeaderText,
   InputContainer,
+  InputWrapper,
   MessageContainer,
   SendArrowContainer,
   SendMessageInput,
@@ -72,21 +73,23 @@ const ConversationDetailLayout = ({
         ))}
       </MessageContainer>
       <InputContainer>
-        <SendMessageInput
-          placeholder="Send message"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          onKeyPress={(e) => {
-            if (e.key === "Enter") {
-              return handleSendMessage();
-            }
-          }}
-        />
-        <SendArrowContainer>
-          <div onClick={() => handleSendMessage()}>
-            <SendArrowIcon color="grey" />
-          </div>
-        </SendArrowContainer>
+        <InputWrapper>
+          <SendMessageInput
+            placeholder="Send message"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            onKeyPress={(e) => {
+              if (e.key === "Enter") {
+                return handleSendMessage();
+              }
+            }}
+          />
+          <SendArrowContainer>
+            <div onClick={() => handleSendMessage()}>
+              <SendArrowIcon color="grey" />
+            </div>
+          </SendArrowContainer>
+        </InputWrapper>
       </InputContainer>
     </Container>
   );

@@ -1,3 +1,49 @@
+# My thought process:
+
+In order to accomplish the exercise, the first step was to have a basic working display of the conversations where each one links to a page that
+displays the messages of that conversation. For the styling, I used styled-components because I strongly prefer for the JSX to contain no references to 
+CSS as this makes the code more difficult to read. It also makes the JSX much more declarative because instead of seeing generic html tags, 
+each element has an explicit name such as "InfoContainer" or "DateText". To avoid the flicker caused by the props loading before the styling, I
+had to add a _document.js file to the pages folder.
+
+To separate the logic for data fetching from the display, all data fetching and formatting occurs in the components in the pages directory
+while all the display logic belongs in the components directory. The majority of the fetching logic is in getServerSideProps(),
+but I also needed to handle the refreshing of data on the client side to show new messages once they were sent. The only formatting of data that occurs
+in the components is the formatting of dates since this is a display issue that is largely dependent on the user's timezone and language.
+
+Once I had a basic, working display of conversations and messages, I implemented the sending of messages. A small feature that I added to improve
+accessibility is to enable new message to be sent either by clicking the arrow button or pressing the enter key.
+
+After the messages could be sent, the new message must become visible by programmatically scrolling to the bottom of the container.
+As soon as the key functionality was complete, I went back and improved the styling to ensure it was correct for both desktop and mobile based on the screens provided.
+
+To address security concerns, I put all the fetching of data in getServerSideProps since this is safer than client-side fetching. 
+When fetching data, I make a check that the user is authenticated (i.e. the userId is truthy), and I redirect to a login page if it is falsy. 
+For the conversation detail page, I check that the user has the right to view a given conversation by seeing if they are either the recipient or the sender.
+If the user is neither, then they are not permitted to view that conversation.
+
+I added basic tests for the two main pages using react-testing-library. Although my tests are by no means complete, I wanted to ensure that the essential 
+information is displayed and the key user actions are covered by the tests.
+
+I had a few issues with json-server which slowed me down a bit: 
+1. When I called the conversation/:id route, the middleware for sending all conversations by userId was intercepting those calls and returning an empty array. 
+I had to modify the middleware to only handle requests with a request.query.senderId.
+2. After sending a new message, the lastMessageTimestamp of the relevant conversation has to be updated. This requires a patch request, but json-server 
+was always returning 404. I finally realized it was because patch requests only work with routes with path params and not query params.
+3. Even though the conversation's lastMessageTimestamp is updated correctly, the conversation list does not update the date because the data in the middleware
+is always stale. I found that the db import in the middleware is stuck at the moment the server is launched and does not take new information into account.
+I could not bear to turn in this test with a glaring bug like that. I tried to find a way to write data to the json in the middleware, but in the interest of time management,
+I decided to just fetch each conversation independently to get the latest timestamp. This is obviously a very inefficient way to do this, but I
+wanted it to work.
+
+3 small improvements I would make:
+1. Regarding showing new messages sent by the other person, I recognize that a chat app like this would most likely use a Web socket architecture rather 
+than a REST API. However, in the current configuration, there needs to be some sort of polling mechanism that ensures that messages sent by the other user 
+would be fetched in regular intervals. 
+2. Use environment variables for the api domain rather than hardcoding "http://localhost:3005"
+3. Using a theme rather than putting uncoordinated colors and sizes for the styling. 
+
+
 # Context :
 
 At leboncoin, our users can share messages about a transaction, or ask for informations about any products.

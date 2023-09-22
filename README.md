@@ -1,3 +1,13 @@
+# Desktop demo:
+
+https://github.com/dmc1985/leboncoin-test/assets/25933535/21b017c8-b709-4be7-903d-6762df93025e
+
+# Mobile demo:
+
+
+https://github.com/dmc1985/leboncoin-test/assets/25933535/78e54c3f-8ae0-48a0-b6cc-9408b2f404c2
+
+
 # My thought process:
 
 In order to accomplish the exercise, the first step was to have a basic working display of the conversations where each one links to a page that

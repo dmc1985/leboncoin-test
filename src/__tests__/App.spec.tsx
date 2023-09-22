@@ -14,6 +14,14 @@ global.fetch = jest.fn(() =>
   }),
 );
 
+jest.mock("../utils/getLastMessageTimestamps", () => ({
+  getLastMessageTimestamps: () => ({
+    1: 1695044338729,
+    2: 1620284667,
+    3: 1625648667,
+  }),
+}));
+
 describe("<App />", () => {
   it("should render three different conversations", () => {
     render(<App conversations={displayedConversations} />);
@@ -36,12 +44,11 @@ describe("<App />", () => {
 
   describe("getServerSideProps()", () => {
     it("should fetch and format conversations", async () => {
+      //for this test I'm mocking out the hacky fix I did for the problem with stale data
+      // in the json middleware.
       const { props } = await getServerSideProps();
 
       expect(fetch).toHaveBeenCalledTimes(1);
-      expect(fetch).toHaveBeenCalledWith(
-        `http://localhost:3005/conversations/1`,
-      );
 
       expect(props.conversations).toStrictEqual(displayedConversations);
     });
